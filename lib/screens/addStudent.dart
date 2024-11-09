@@ -14,7 +14,7 @@ class AddStudent extends StatelessWidget {
   TextEditingController email = TextEditingController();
   TextEditingController address = TextEditingController();
 
-  Future<void> addStudent() async {
+  Future<void> addStudent(BuildContext context) async {
     final url = Uri.parse('https://logix-space-course-app-1.onrender.com/addstudents');
 
     final response = await http.post(
@@ -33,7 +33,10 @@ class AddStudent extends StatelessWidget {
     );
 
     if (response.statusCode == 200) {
-      print("Student added successfully");
+      // print("Student added successfully");
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Student added successfully"))
+      );
     } else {
       print("Failed to add student: ${response.statusCode}");
     }
@@ -127,7 +130,7 @@ class AddStudent extends StatelessWidget {
                   backgroundColor: Colors.green,
                 ),
                 onPressed: () async {
-                  await addStudent();
+                  await addStudent(context);
                 },
                 child: Text(
                   "Submit",
